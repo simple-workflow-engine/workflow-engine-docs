@@ -6,9 +6,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
-  tagline: "Dinosaurs are cool",
-  favicon: "img/favicon.ico",
+  title: "Simple Workflow Engine",
+  tagline: "Workflow Engine For Developers",
+  favicon: "img/favicon.png",
 
   // Set the production url of your site here
   url: "https://workflow-engine-docs.pages.dev",
@@ -67,7 +67,7 @@ const config = {
             route: "/api/",
             url: "https://workflow-engine.onrender.com/api",
             id: "api",
-            config: "redocly.yaml"
+            config: "redocly.yaml",
           },
         ],
         // Theme Options for modifying how redoc renders them
@@ -96,17 +96,17 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: "My Site",
+        title: "Workflow Engine Docs",
         logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg",
+          alt: "Workflow Engine Logo",
+          src: "img/favicon.png",
         },
         items: [
           {
             type: "docSidebar",
-            sidebarId: "tutorialSidebar",
+            sidebarId: "docsSidebar",
             position: "left",
-            label: "Tutorial",
+            label: "Docs",
           },
           {
             label: "API",
@@ -127,7 +127,7 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
+                label: "Introduction",
                 to: "/docs/intro",
               },
             ],
@@ -136,30 +136,30 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
                 label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                href: "https://discord.com/users/588309124010213396",
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                label: "X (formally Twitter)",
+                href: "https://twitter.com/nisarg_2001",
               },
             ],
           },
           {
-            title: "More",
+            title: "Codebase",
             items: [
               {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: "Workflow Engine",
+                href: "https://github.com/simple-workflow-engine/workflow-engine",
+              },
+              {
+                label: "Workflow Engine UI - React",
+                href: "https://github.com/simple-workflow-engine/workflow-engine-ui-r",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Simple Workflow Engine. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
