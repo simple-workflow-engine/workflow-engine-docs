@@ -1,0 +1,405 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "AppController_health",
+        "parameters": [],
+        "responses": { "200": { "description": "" } }
+      }
+    },
+    "/definition/list": {
+      "get": {
+        "operationId": "DefinitionController_definitionList",
+        "summary": "Workflow Definition List",
+        "description": "It will return array of Definition documents from the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "schema": { "title": "DefinitionList" },
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Definition" }
+                }
+              }
+            }
+          },
+          "500": { "description": "" }
+        },
+        "tags": ["Definition"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/definition/create": {
+      "post": {
+        "operationId": "DefinitionController_addWorkflowDefinition",
+        "summary": "Workflow Definition Create",
+        "description": "It will create new definition in database",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "AddDefinitionDto",
+                "$ref": "#/components/schemas/AddDefinitionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "schema": { "title": "DefinitionCreated" },
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Definition" }
+              }
+            }
+          },
+          "500": { "description": "" }
+        },
+        "tags": ["Definition"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/definition/edit/{id}": {
+      "put": {
+        "operationId": "DefinitionController_edit",
+        "summary": "Workflow Definition Edit",
+        "description": "It will update definition in database",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Definition Id",
+            "schema": { "title": "id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "EditDefinitionDto",
+                "$ref": "#/components/schemas/EditDefinitionDto"
+              }
+            }
+          }
+        },
+        "responses": { "500": { "description": "" } },
+        "tags": ["Definition"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/definition/{id}/detail": {
+      "get": {
+        "operationId": "DefinitionController_getDefinitionDetail",
+        "summary": "Workflow Definition Detail",
+        "description": "It will return definition document with all corelated runtime documents also",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Definition Id",
+            "schema": { "title": "id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": { "title": "DefinitionDetail" },
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Definition" }
+              }
+            }
+          },
+          "404": { "description": "" },
+          "500": { "description": "" }
+        },
+        "tags": ["Definition"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/definition/{id}": {
+      "get": {
+        "operationId": "DefinitionController_getDefinition",
+        "summary": "Workflow Definition",
+        "description": "It will return definition document",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Definition Id",
+            "schema": { "title": "id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": { "title": "Definition" },
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Definition" }
+              }
+            }
+          },
+          "404": { "description": "" },
+          "500": { "description": "" }
+        },
+        "tags": ["Definition"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/runtime/{id}/detail": {
+      "get": {
+        "operationId": "RuntimeController_getRuntimeDetail",
+        "summary": "Workflow Runtime Detail",
+        "description": "It will return runtime document with corelated definition document",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Runtime Id",
+            "schema": { "title": "id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": { "title": "RuntimeDetail" },
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Runtime" }
+              }
+            }
+          },
+          "404": { "description": "" },
+          "500": { "description": "" }
+        },
+        "tags": ["Runtime"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/transport/start": {
+      "post": {
+        "operationId": "TransportController_startWorkflow",
+        "summary": "Workflow Engine Start",
+        "description": "It will start workflow engine for specified definition with addition of global params",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "StartWorkflowDto",
+                "$ref": "#/components/schemas/StartWorkflowDto"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Transport"],
+        "security": [{ "jwt": [] }]
+      }
+    },
+    "/transport/process": {
+      "post": {
+        "operationId": "TransportController_processWorkflow",
+        "summary": "Workflow Engine Process",
+        "description": "It will start workflow engine for specified task name. This is Internal Path used by engine itself as HTTP Transport",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "ProcessWorkflowDto",
+                "$ref": "#/components/schemas/ProcessWorkflowDto"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Transport"],
+        "security": [{ "basic": [] }]
+      }
+    }
+  },
+  "info": {
+    "title": "Workflow Engine",
+    "description": "The Workflow Engine API",
+    "version": "0.0.1",
+    "contact": {
+      "name": "Nisarg Bhatt",
+      "url": "https://github.com/nisargrbhatt",
+      "email": "nisargrbhatt@gmail.com"
+    }
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "jwt": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" },
+      "basic": { "type": "http", "scheme": "basic" }
+    },
+    "schemas": {
+      "Definition": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Name" },
+          "description": { "type": "string", "description": "Description" },
+          "tasks": {
+            "description": "Tasks List",
+            "type": "array",
+            "items": { "type": "object" }
+          },
+          "global": { "type": "object", "description": "Global Object" },
+          "status": {
+            "type": "string",
+            "enum": ["active", "inactive"],
+            "description": "Status"
+          },
+          "uiObject": {
+            "type": "object",
+            "description": "UI Object - Used by Frontend only"
+          },
+          "userId": { "type": "string", "description": "User Id" }
+        },
+        "required": [
+          "name",
+          "description",
+          "tasks",
+          "status",
+          "uiObject",
+          "userId"
+        ]
+      },
+      "Map": { "type": "object", "properties": {} },
+      "WorkflowTask": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Task Id" },
+          "name": { "type": "string", "description": "Task Name" },
+          "type": {
+            "type": "string",
+            "enum": ["FUNCTION", "WAIT", "START", "END", "LISTEN", "GUARD"],
+            "description": "Task Type"
+          },
+          "next": {
+            "description": "Task Next Item",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "previous": {
+            "description": "Task Previous Item",
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["id", "name", "type", "next", "previous"]
+      },
+      "WorkflowData": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Workflow Name" },
+          "description": {
+            "type": "string",
+            "description": "Workflow description"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "inactive"],
+            "description": "Workflow status"
+          },
+          "global": {
+            "description": "Workflow Global Params",
+            "example": { "key": "value" },
+            "allOf": [{ "$ref": "#/components/schemas/Map" }]
+          },
+          "tasks": {
+            "description": "Workflow Tasks",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/WorkflowTask" }
+          }
+        },
+        "required": ["name", "description", "status", "tasks"]
+      },
+      "AddDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "workflowData": {
+            "description": "Workflow Definition Data",
+            "allOf": [{ "$ref": "#/components/schemas/WorkflowData" }]
+          },
+          "key": { "type": "string", "description": "Frontend Framework slug" },
+          "ui": {
+            "description": "UI Object",
+            "example": { "key": "value" },
+            "allOf": [{ "$ref": "#/components/schemas/Map" }]
+          }
+        },
+        "required": ["workflowData", "key"]
+      },
+      "EditDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "workflowData": {
+            "description": "Workflow Definition Data",
+            "allOf": [{ "$ref": "#/components/schemas/WorkflowData" }]
+          },
+          "key": { "type": "string", "description": "Frontend Framework slug" },
+          "ui": {
+            "description": "UI Object",
+            "example": { "key": "value" },
+            "allOf": [{ "$ref": "#/components/schemas/Map" }]
+          }
+        },
+        "required": ["workflowData", "key"]
+      },
+      "Runtime": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string", "description": "User Id" }
+        },
+        "required": ["userId"]
+      },
+      "StartWorkflowDto": {
+        "type": "object",
+        "properties": {
+          "workflowDefinitionId": {
+            "type": "string",
+            "description": "Workflow Definition Id"
+          },
+          "globalParams": {
+            "description": "Workflow GlobalParams",
+            "allOf": [{ "$ref": "#/components/schemas/Map" }]
+          }
+        },
+        "required": ["workflowDefinitionId"]
+      },
+      "ProcessWorkflowDto": {
+        "type": "object",
+        "properties": {
+          "workflowRuntimeId": {
+            "type": "string",
+            "description": "Workflow Runtime Id"
+          },
+          "taskName": {
+            "type": "string",
+            "description": "Workflow Definition Task Name"
+          }
+        },
+        "required": ["workflowRuntimeId", "taskName"]
+      }
+    }
+  }
+}

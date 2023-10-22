@@ -48,10 +48,48 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+        sitemap: {
+          changefreq: "weekly",
+          priority: 0.5,
+          ignorePatterns: [],
+          filename: "sitemap.xml",
+        },
+      }),
+    ],
+    [
+      "redocusaurus",
+      /** @type {import('redocusaurus').PresetOptions} */
+      ({
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          {
+            spec: "openapi/openapi.json",
+            route: "/api/",
+            url: "https://workflow-engine.onrender.com/api",
+            id: "api",
+            config: "redocly.yaml"
+          },
+        ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          // Change with your site colors
+          primaryColor: "#1890ff",
+        },
       }),
     ],
   ],
-
+  plugins: [
+    [
+      "@docusaurus/plugin-ideal-image",
+      {
+        quality: 70,
+        max: 1030, // max resized image's size.
+        min: 640, // min resized image's size. if original is lower, use that size.
+        steps: 2, // the max number of images generated between min and max (inclusive)
+        disableInDev: false,
+      },
+    ],
+  ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -69,6 +107,11 @@ const config = {
             sidebarId: "tutorialSidebar",
             position: "left",
             label: "Tutorial",
+          },
+          {
+            label: "API",
+            position: "left",
+            to: "/api",
           },
           {
             href: "https://github.com/simple-workflow-engine/workflow-engine-docs",
