@@ -9,7 +9,9 @@ const config = {
   title: "Simple Workflow Engine",
   tagline: "Workflow Engine For Developers",
   favicon: "img/favicon.png",
-
+  markdown: {
+    mermaid: true,
+  },
   // Set the production url of your site here
   url: "https://workflow-engine-docs.pages.dev",
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -90,6 +92,7 @@ const config = {
       },
     ],
   ],
+  themes: ["@docusaurus/theme-mermaid"],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
