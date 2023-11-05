@@ -232,6 +232,35 @@
         "tags": ["Transport"],
         "security": [{ "basic": [] }]
       }
+    },
+    "/transport/listen": {
+      "post": {
+        "operationId": "TransportController_processListenTask",
+        "summary": "Process Listen Task",
+        "description": "It will Process Listen Task with globalParams update",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "Listen Task Security",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "ProcessListenDto",
+                "$ref": "#/components/schemas/ProcessListenDto"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["Transport"]
+      }
     }
   },
   "info": {
@@ -396,6 +425,24 @@
           "taskName": {
             "type": "string",
             "description": "Workflow Definition Task Name"
+          }
+        },
+        "required": ["workflowRuntimeId", "taskName"]
+      },
+      "ProcessListenDto": {
+        "type": "object",
+        "properties": {
+          "workflowRuntimeId": {
+            "type": "string",
+            "description": "Workflow Runtime Id"
+          },
+          "taskName": {
+            "type": "string",
+            "description": "Workflow Definition Task Name"
+          },
+          "globalParams": {
+            "description": "Workflow GlobalParams",
+            "allOf": [{ "$ref": "#/components/schemas/Map" }]
           }
         },
         "required": ["workflowRuntimeId", "taskName"]
